@@ -8,7 +8,7 @@ import { HTTP } from './src/utils/http-common';
 // Prints Vue logs when --env.production is *NOT* set while building
 Vue.config.silent = (TNS_ENV === 'production');
 Vue.prototype.$http = HTTP;
-
+Vue.registerElement('BarcodeScanner', () => require('nativescript-barcodescanner').BarcodeScannerView)
 
 new Vue({
   store,

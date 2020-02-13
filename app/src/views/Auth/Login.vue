@@ -87,6 +87,10 @@ export default {
       }
     };
   },
+  mounted(){
+    console.warn('eee33s333');
+  },
+
   methods: {
     submit() {
       this.loading = true;
@@ -131,30 +135,31 @@ export default {
         });
     },
     forgotPassword() {
-      prompt({
-        title: "Forgot Password",
-        message:
-          "Enter the email address you used to register for APP NAME to reset your password.",
-        inputType: "email",
-        defaultText: "",
-        okButtonText: "Ok",
-        cancelButtonText: "Cancel"
-      }).then(data => {
-        if (data.result) {
-          this.$backendService
-            .resetPassword(data.text.trim())
-            .then(() => {
-              this.customAlert(
-                "Your password was successfully reset. Please check your email for instructions on choosing a new password."
-              );
-            })
-            .catch(() => {
-              this.customAlert(
-                "Unfortunately, an error occurred resetting your password."
-              );
-            });
-        }
-      });
+      this.$navigateTo(Home);
+      // prompt({
+      //   title: "Forgot Password",
+      //   message:
+      //     "Enter the email address you used to register for APP NAME to reset your password.",
+      //   inputType: "email",
+      //   defaultText: "",
+      //   okButtonText: "Ok",
+      //   cancelButtonText: "Cancel"
+      // }).then(data => {
+      //   if (data.result) {
+      //     this.$backendService
+      //       .resetPassword(data.text.trim())
+      //       .then(() => {
+      //         this.customAlert(
+      //           "Your password was successfully reset. Please check your email for instructions on choosing a new password."
+      //         );
+      //       })
+      //       .catch(() => {
+      //         this.customAlert(
+      //           "Unfortunately, an error occurred resetting your password."
+      //         );
+      //       });
+      //   }
+      // });
     },
     focusPassword() {
       this.$refs.password.nativeView.focus();

@@ -1,20 +1,24 @@
 <template>
   <Page>
-    <ActionBar title="this is vue" android:flat="true" />
+    <ActionBar>
+      <label text="QR 4 3" />
+      <NavigationButton text="Go Back" android.systemIcon="ic_menu_back"></NavigationButton>
+      <!-- <ActionItem ios.systemIcon="2" android.systemIcon="ic_menu_edit" ios.position="right"></ActionItem> -->
+    </ActionBar>
     <TabView
-      android:tabBackgroundColor="#53ba82"
+      android:tabBackgroundColor="#000000"
       android:tabTextColor="#c4ffdf"
       android:selectedTabTextColor="#ffffff"
       androidSelectedTabHighlightColor="#ffffff"
     >
-      <TabViewItem title="Tab 1">
+      <TabViewItem color="orange" selectedColor="green" title="Tab2331">
         <GridLayout columns="*" rows="*">
           <Label class="message" :text="msg" col="0" row="0" />
         </GridLayout>
       </TabViewItem>
-      <TabViewItem title="Tab 2">
+      <TabViewItem @tap="navToQR" title="Tab 334">
         <GridLayout columns="*" rows="*">
-          <Label class="message" text="Tab 2 Content" col="0" row="0" />
+          <QRCode />
         </GridLayout>
       </TabViewItem>
       <TabViewItem title="Tab 3">
@@ -27,21 +31,44 @@
 </template>
 
 <script >
+import QRCode from "@/src/views/QRReader";
+
 export default {
+  components: {
+    QRCode
+  },
+  mounted() {
+    console.warn("mounted");
+  },
   data() {
     return {
-      msg: "Hello " + this.$store.getters.currentUser.username
+      msg: "Hello22  " + this.$store.getters.currentUser.username
     };
+  },
+  methdos: {
+    navToQR() {
+      console.warn("nav");
+    }
   }
 };
 </script>
 
 <style scoped>
 ActionBar {
-  background-color: #53ba82;
-  color: #ffffff;
+  background-color: #000000;
+  color: rgb(245, 244, 245);
+}
+TabView {
+  tab-text-color: rgb(127, 127, 127);
+  selected-tab-text-color: rgb(239, 178, 1);
+  ios-selected-tab-highlight-color: rgb(239, 178, 1);
+  tab-background-color: #000000;
+  android-selected-tab-highlight-color: rgb(239, 178, 1);
 }
 
+TabViewItem {
+  font-size: 20;
+}
 .message {
   vertical-align: center;
   text-align: center;

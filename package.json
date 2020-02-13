@@ -17,6 +17,8 @@
   "dependencies": {
     "@nativescript/theme": "^2.2.1",
     "axios": "^0.19.2",
+    "nativescript-barcodescanner": "^3.4.1",
+    "nativescript-camera": "^4.5.0",
     "nativescript-toasts": "^1.0.3",
     "nativescript-vue": "^2.4.0",
     "tns-core-modules": "^6.0.0",
