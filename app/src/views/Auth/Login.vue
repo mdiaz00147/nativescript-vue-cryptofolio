@@ -4,7 +4,7 @@
       <StackLayout class="form">
         <Image class="logo" src="~/assets/images/ui-logo.png"></Image>
         <Label
-          text="Log in to your account"
+          :text="isLoggingIn ? 'Log In To Your Account' : 'Create An Account'"
           class="h2 text-center text-white"
           @tap="forgotPassword()"
         ></Label>
@@ -12,30 +12,27 @@
           <TextField
             class="input"
             hint="Email"
-            :isEnabled="!loading"
             keyboardType="email"
             autocorrect="false"
             autocapitalizationType="none"
             v-model="user.username"
             returnKeyType="next"
-            @returnPress="focusPassword"
           ></TextField>
 
           <TextField
             class="input"
             ref="password"
-            :isEnabled="!loading"
             hint="Password"
             secure="true"
             v-model="user.password"
             :returnKeyType="isLoggingIn ? 'done' : 'next'"
-            @returnPress="focusConfirmPassword"
+            @returnPress="focusPassword"
           ></TextField>
 
           <TextField
+            v-if="!isLoggingIn"
             class="input"
             ref="confirmPassword"
-            :isEnabled="!loading"
             hint="Confirm password"
             secure="true"
             v-model="user.confirmPassword"
@@ -58,7 +55,7 @@
           @tap="forgotPassword()"
         ></Label>
 
-        <Label class="text-center text-red label-sign m-t-30" @tap="toggleForm">
+        <Label class="text-center text-red label-sign m-t-30" @tap="isLoggingIn = !isLoggingIn;">
           <FormattedString>
             <Span
               class="text-white label-sign"
@@ -91,10 +88,15 @@ export default {
     };
   },
   methods: {
-    toggleForm() {
-      this.isLoggingIn = !this.isLoggingIn;
-    },
     submit() {
+      this.loading = true;
+      if (this.isLoggingIn) {
+        this.login();
+      } else {
+        this.register();
+      }
+    },
+    login() {
       this.$http({
         method: "POST",
         url: "/api/v1/client/sessions",
@@ -103,28 +105,29 @@ export default {
         .then((response) => {
           this.$store.commit("setCurrentUser", response.data.user);
           this.$navigateTo(Home);
+          this.loading = false;
         })
-        .catch((e) => {
-          this.toasted(e.response.data.error);
+        .catch(e => {
+          this.customAlert(e.response.data.error);
+          this.loading = false;
         });
     },
     register() {
-      if (this.user.password != this.user.confirmPassword) {
-        this.alert("Your passwords do not match.");
-        this.loading = false;
-        return;
-      }
-
-      this.$backendService
-        .register(this.user)
+      this.$http({
+        method: "POST",
+        url: "/api/v1/client",
+        data: this.user
+      })
         .then(() => {
           this.loading = false;
-          this.alert("Your account was successfully created.");
+          this.customAlert("Your account was successfully created.");
           this.isLoggingIn = true;
         })
         .catch(() => {
           this.loading = false;
-          this.alert("Unfortunately we were unable to create your account.");
+          this.customAlert(
+            "Unfortunately we were unable to create your account."
+          );
         });
     },
     forgotPassword() {
@@ -141,34 +144,20 @@ export default {
           this.$backendService
             .resetPassword(data.text.trim())
             .then(() => {
-              this.alert(
+              this.customAlert(
                 "Your password was successfully reset. Please check your email for instructions on choosing a new password."
               );
             })
             .catch(() => {
-              this.alert(
+              this.customAlert(
                 "Unfortunately, an error occurred resetting your password."
               );
             });
         }
       });
     },
-
     focusPassword() {
       this.$refs.password.nativeView.focus();
-    },
-    focusConfirmPassword() {
-      if (!this.isLoggingIn) {
-        this.$refs.confirmPassword.nativeView.focus();
-      }
-    },
-
-    alert(message) {
-      return alert({
-        title: "APP NAME",
-        okButtonText: "OK",
-        message: message
-      });
     }
   }
 };

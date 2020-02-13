@@ -8,6 +8,13 @@ export const ToastMixin = {
         dutation: Toast.DURATION.SHORT
       });
       Toast.show(toastOptions);
+    },
+    customAlert(message) {
+      return alert({
+        title: "",
+        okButtonText: "OK",
+        message: message
+      });
     }
   }
 }
