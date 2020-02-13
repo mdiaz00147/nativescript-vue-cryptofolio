@@ -1,0 +1,14 @@
+// NativeScript core theme
+// @see https://docs.nativescript.org/ui/theme
+@import '~@nativescript/theme/core';
+@import '~@nativescript/theme/ruby';
+
+// Override variables here
+.text-white {
+  color: white;
+}
+.text-red {
+  color: #bf2746;
+}
+// Global SCSS styling
+// @see https://docs.nativescript.org/ui/styling
