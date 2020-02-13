@@ -1,6 +1,6 @@
 # home-counter
 
-> A native application built with NativeScript-Vue
+> A native application built with NativeScript-Vue that allows you to have control over all of your crypto exchanges assets
 
 ## Usage
 
