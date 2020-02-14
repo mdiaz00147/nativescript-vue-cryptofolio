@@ -4,7 +4,7 @@
       <StackLayout class="form">
         <Image class="logo" src="~/assets/images/ui-logo.png"></Image>
         <Label
-          :text="isLoggingIn ? 'Log In To Your Account' : 'Create An Account'"
+          :text="isLoggingIn ? 'Log In To Your jose' : 'Create An Account'"
           class="h2 text-center text-white"
           @tap="forgotPassword()"
         ></Label>
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import Home from "./Register";
+import Home from "@/src/views/TabNavigation/Layout";
 import { ToastMixin } from "@/src/mixins/";
 
 export default {
@@ -173,7 +173,7 @@ export default {
   font-size: 20;
 }
 .container {
-  background: rgba(20, 18, 21, 1);
+  background-color: rgba(20, 18, 21, 1);
 }
 .content {
   background-color: rgba(29, 28, 33, 1);

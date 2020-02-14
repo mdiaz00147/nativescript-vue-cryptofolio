@@ -11,8 +11,8 @@ export default {
       scanText: null
     };
   },
-  mounted(){
-    console.warn("mountedQR")
+  created(){
+    this.$store.commit('setTabTitle', 'QR Reader');
   },
   methods: {
     scanQrCode() {

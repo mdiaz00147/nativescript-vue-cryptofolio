@@ -1,7 +1,5 @@
 <template>
   <AbsoluteLayout width="100%" height="100%" >
-
-
     <ScrollView>
       <StackLayout ~mainContent>
         <StackLayout class="home-panel">
