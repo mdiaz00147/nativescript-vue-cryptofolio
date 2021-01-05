@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@nativescript/theme": "^2.2.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "nativescript-toasts": "^1.0.3",
     "nativescript-vue": "^2.4.0",
     "tns-core-modules": "^6.0.0",
